@@ -3374,10 +3374,14 @@ extern int update_resv(resv_desc_msg_t *resv_desc_ptr, char **err_msg)
 
 	/* Find the specified reservation */
 	if (!resv_desc_ptr->name)
+		char *err_str = "No reservation specified";
+		info("%s", err_str);
 		return ESLURM_RESERVATION_INVALID;
 
 	resv_ptr = find_resv_name(resv_desc_ptr->name);
 	if (!resv_ptr)
+		char *err_str = "Specified reservation not found";
+		info("%s", err_str);
 		return ESLURM_RESERVATION_INVALID;
 
 	if ((resv_desc_ptr->core_cnt != NO_VAL) && !slurm_select_cr_type()) {
